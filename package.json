@@ -1,0 +1,26 @@
+{
+  "name": "october-theme-starter",
+  "version": "1.0.0",
+  "description": "OctoberCMS starter theme with SCSS compilation and livereload",
+  "main": "package.json",
+  "scripts": {
+    "sass:build": "node-sass --include-path node_modules --source-map assets/css/ style -o assets/css/",
+    "sass:watch": "node-sass-chokidar --include-path node_modules --source-map assets/css/ -w style -o assets/css/",
+    "sass": "run-s sass:*",
+    "sync": "browser-sync start --logLevel silent --reload-debounce 200 -f assets content layouts pages partials",
+    "build": "run-s sass:build",
+    "start": "run-p sass sync",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mister.gamer@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "node-sass": "^4.5.2",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.0.2"
+  }
+}

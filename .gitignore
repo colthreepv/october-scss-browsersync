@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Not a fan of NPM 5 package-lock.json, yet
+package-lock.json
+
+# CSS Should be compiled every time from SCSS
+assets/css/

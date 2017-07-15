@@ -1,0 +1,59 @@
+description = "Default layout"
+==
+{#
+  Put here css files produced by SCSS,
+  those are usually the ones without a leading underscore (_filename.scss)
+#}
+{% set css = [
+  'assets/css/theme.css',
+] %}
+{#
+  Add in js your javascript files, they will be served plain during development
+  This will enhance debuggability.
+  In production, those would be combined together with the rest.
+  Example:
+  set js = ['assets/js/myapp.js']
+#}
+{% set js = [] %}
+{% set basejs = [
+  '@jquery',
+  '@framework',
+  '@framework.extras'
+] %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ this.page.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {%- if this.environment == 'dev' %}
+      {%- for style in css -%}
+    <link href="{{ style | theme }}" rel="stylesheet">
+      {% endfor -%}
+    {% else %}
+    <link href="{{ css | theme }}" rel="stylesheet">
+    {% endif %}
+
+    {% styles %}
+  </head>
+  <body>
+    {% page %}
+
+    {%- if this.environment == 'dev' %}
+    <script src="{{ basejs | theme }}"></script>
+    {# browser-sync include #}
+    <script id="__bs_script__">//<![CDATA[
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.8'><\/script>".replace("HOST", location.hostname));
+    //]]></script>
+
+      {%- for script in js -%}
+    <script src="{{ script | theme }}"></script>
+      {% endfor -%}
+    {% else %}
+    <script src="{{ basejs | merge(js) | theme }}"></script>
+    {% endif %}
+
+    {% scripts %}
+  </body>
+</html>
